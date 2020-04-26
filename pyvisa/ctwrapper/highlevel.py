@@ -239,7 +239,7 @@ class IVIVisaLibrary(highlevel.VisaLibraryBase):
     def list_resources(
         self, session: typing.VISARMSession, query: str = "?*::INSTR"
     ) -> Tuple[str, ...]:
-        """Returns a tuple of all connected devices matching query.
+        r"""Returns a tuple of all connected devices matching query.
 
         Parameters
         ----------
@@ -350,9 +350,9 @@ class IVIVisaLibrary(highlevel.VisaLibraryBase):
         job_id = types.ViJobId()
         self._async_read_jobs.append((job_id, buffer))  # type: ignore
         ret = self.lib.viReadAsync(session, buffer, count, ctypes.byref(job_id))
-        return buffer, job_id, ret  # type: ignore
+        return buffer, job_id.value, ret  # type: ignore
 
-    def get_buffer_from_id(self, job_id: types.ViJobId) -> Optional[SupportsBytes]:
+    def get_buffer_from_id(self, job_id: typing.VISAJobID) -> Optional[SupportsBytes]:
         """Retrieve the buffer associated with a job id created in read_asynchronously.
 
         Parameters
@@ -367,7 +367,7 @@ class IVIVisaLibrary(highlevel.VisaLibraryBase):
 
         """
         for jid, buffer in self._async_read_jobs:
-            if job_id.value == jid.value:
+            if job_id == jid.value:
                 return buffer
 
         return None
