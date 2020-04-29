@@ -10,10 +10,10 @@ import sys
 import tempfile
 import unittest
 from configparser import ConfigParser
-from io import StringIO
 from functools import partial
+from io import StringIO
 
-from pyvisa import util, highlevel
+from pyvisa import highlevel, util
 from pyvisa.ctwrapper import IVIVisaLibrary
 from pyvisa.testsuite import BaseTestCase
 
