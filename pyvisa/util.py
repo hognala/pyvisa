@@ -328,7 +328,9 @@ BINARY_HEADERS = Literal["ieee", "hp", "empty"]
 
 #: Valid datatype for binary block. See Python standard library struct module for more
 #: details.
-BINARY_DATATYPES = Literal["s", "h", "H", "i", "I", "l", "L", "q", "Q", "f", "d"]
+BINARY_DATATYPES = Literal[
+    "s", "b", "B", "h", "H", "i", "I", "l", "L", "q", "Q", "f", "d"
+]
 
 #: Valid output containers for storing the parsed binary data
 BINARY_CONTAINERS = Union[type, Callable]
@@ -853,12 +855,12 @@ def system_details_to_str(d: Dict[str, str], indent: str = "") -> str:
 
 @overload
 def get_debug_info(to_screen: Literal[True] = True) -> None:
-    ...
+    pass
 
 
 @overload
 def get_debug_info(to_screen: Literal[False]) -> str:
-    ...
+    pass
 
 
 def get_debug_info(to_screen=True):
